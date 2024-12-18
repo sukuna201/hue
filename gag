@@ -1,0 +1,39 @@
+#pgzero
+
+WIDTH = 600 # Ширина окна
+HEIGHT = 300 # Высота окна
+
+TITLE = "Приключения Coddy" # Заголовок окна игры
+FPS = 30 # Количество кадров в секунду
+
+#Переменные с графикой
+fon = Actor('fon_city')
+coddy = Actor('coddy', (50,240))
+fireball = Actor('fireball', (700, 240))
+
+#Отрисовка
+def draw():
+    fon.draw()
+    coddy.draw()
+    fireball.draw()
+    
+#Перемещение
+def update(dt):
+    #Перемещение препятствия
+    if fireball.x > -20:
+        fireball.x = fireball.x - 5
+    else:
+        fireball.x = WIDTH + 20
+        
+    #Управление
+    if keyboard.left and coddy.x > 20:
+        coddy.x = coddy.x - 5
+    elif keyboard.right and coddy.x < 580:
+        coddy.x = coddy.x + 5
+
+def on_key_down(key):
+    #Прыжок
+    if keyboard.up:
+        coddy.y = 100
+        animate(coddy, tween = 'bounce_end', duration=2,y=240)
+    
